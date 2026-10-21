@@ -1,0 +1,57 @@
+﻿Linha original,Nome,RA,Nota01,TF01,Nota02,TF02,Problemas
+2,Lucas Rodrigues,0100001,"2,1",FALTOU,2.2,0,TF01 ausente ou inválida
+3,Julia Ferreira Almeida,,"6,8","1,6",7.3,"0,3",RA ausente
+4,Thiago Araujo,,"2,7",1.4,"3,6","0,8",RA ausente
+5,Igor Rodrigues,RA100004,"9,6","1,2",9.5,,TF02 ausente ou inválida
+9,Carlos Ferreira Rodrigues,100008,6.0,,"5,3","0,5",TF01 ausente ou inválida
+13,Wesley Gomes,RA100012,8,0,FALTOU,"1,8",Nota02 ausente ou inválida
+14,Fernanda Gomes Almeida,100013,6,FALTOU,1.9,"1,0",TF01 ausente ou inválida
+15,Heloisa Araujo Rodrigues,100014,,0.9,"6,0",falta,Nota01 ausente ou inválida; TF02 ausente ou inválida
+16,Lucas Araujo Martins,,6.6,1,8.5,1,RA ausente
+18,Yasmin Pereira Oliveira,100017,"4,6",,"0,8","0,0",TF01 ausente ou inválida
+20,Ana Ferreira Pereira,100019-0,"1,2","4,2",0.8,,RA fora do formato esperado; TF02 ausente ou inválida
+22,Quezia Carvalho Ferreira,0100021,"3,3","1,1",-,"1,5",Nota02 ausente ou inválida
+26,Bruno Rodrigues,100025-0,1,N/A,1.9,"0,7",RA fora do formato esperado; TF01 ausente ou inválida
+27,Mariana Lima,RA100026,"8,2",0.4,"10,2","1,8",Nota02 ausente ou inválida
+28,Igor Araujo,100027,"0,7",1.6,,"1,4",Nota02 ausente ou inválida
+31,Wesley Silva Ribeiro,100030,"6,0","0,4",,1.3,Nota02 ausente ou inválida
+32,Igor Lima,100031,12.3,1,3,0.8,Nota01 ausente ou inválida
+33,Mariana Martins Ferreira,100032,2.0,,9.0,0.8,TF01 ausente ou inválida
+34,Nathan Ferreira,100033,FALTOU,"1,3","7,8","1,0",Nota01 ausente ou inválida
+36,Yasmin Costa Ribeiro,100035,4.6,"0,5",3.3,falta,TF02 ausente ou inválida
+39,Bruno Silva,,"9,4",1,"7,8","1,5",RA ausente
+41,Sabrina Pereira,100040,"8,8",0.1,0,FALTOU,TF02 ausente ou inválida
+42,Zeca Ribeiro Oliveira,RA100041,12,"1,3",3,1.8,Nota01 ausente ou inválida
+43,Yasmin Silva,100042-0,FALTOU,1,"7,6","0,4",RA fora do formato esperado; Nota01 ausente ou inválida
+46,Wesley Souza Rodrigues,100045-0,6,1.6,6.0,"1,5",RA fora do formato esperado
+47,Zeca Costa,100046,4.2,"0,9","6,5",FALTOU,TF02 ausente ou inválida
+48,Gabriel Ferreira,100047,"2,0",1.5,7.3,,TF02 ausente ou inválida
+50,Heloisa Gomes,100049-0,8.0,"0,2",5.6,"1,3",RA fora do formato esperado
+51,Thiago Rodrigues,100050,5,"1,1",-,"0,2",Nota02 ausente ou inválida
+52,Sabrina Santos,100051,"7,3",0.9,10.2,"1,0",Nota02 ausente ou inválida
+54,Nathan Martins Santos,100053,9.1,1.4,12.3,"1,6",Nota02 ausente ou inválida
+55,Lucas Silva,0100054,,"0,8","9,9",0,Nota01 ausente ou inválida
+56,Wesley Souza,100055-0,5.7,1.4,6,,RA fora do formato esperado; TF02 ausente ou inválida
+59,Nathan Almeida,,7.1,"1,1",8.3,1.6,RA ausente
+60,Eduardo Costa Pereira,100059,6,1.7,9.5,N/A,TF02 ausente ou inválida
+61,Fernanda Carvalho Santos,100060-0,8.9,"0,6","8,5",1.9,RA fora do formato esperado
+63,Nathan Silva,100062-0,"1,4","1,7","3,3",2.0,RA fora do formato esperado
+66,Xuxa Ribeiro,100065,falta,"1,6",0.6,4,Nota01 ausente ou inválida
+67,Igor Silva Almeida,100066-0,"4,4","1,2",2.3,0.0,RA fora do formato esperado
+69,Bruno Santos Gomes,100068,,1.0,1.2,"1,1",Nota01 ausente ou inválida
+74,Zeca Araujo,RA100073,falta,0.2,"4,2",0.4,Nota01 ausente ou inválida
+75,Vinicius Santos,0100074,"4,0",1,6,FALTOU,TF02 ausente ou inválida
+76,Quezia Rocha,100075,7,1,"5,8",FALTOU,TF02 ausente ou inválida
+77,Fernanda Araujo Rocha,100076-0,2.4,"1,0",9.7,"0,8",RA fora do formato esperado
+78,Heloisa Carvalho Martins,,"2,4","0,9","6,3",1.4,RA ausente
+80,Mariana Carvalho,100079,1.8,,"2,5",1,TF01 ausente ou inválida
+81,Fernanda Lima Martins,100080,"5,6","1,2",8.8,falta,TF02 ausente ou inválida
+82,Gabriel Ribeiro,100081,2.8,1,4.3,,TF02 ausente ou inválida
+83,Sabrina Gomes Ferreira,100082,falta,"0,2","12,1",1,Nota01 ausente ou inválida; Nota02 ausente ou inválida
+84,Olivia Ferreira,100083-0,"11,5","0,6",11.5,1.5,RA fora do formato esperado; Nota01 ausente ou inválida; Nota02 ausente ou inválida
+86,Bruno Souza,100085,"4,9",1,-,"0,4",Nota02 ausente ou inválida
+91,Thiago Rocha Silva,100090,8.7,"1,5","12,5",1.7,Nota02 ausente ou inválida
+94,Wesley Rocha,0100093,7.2,N/A,0.8,"0,9",TF01 ausente ou inválida
+95,Igor Gomes,,-,1.2,6.0,0.4,RA ausente; Nota01 ausente ou inválida
+97,Olivia Ribeiro,100096,7.4,"1,5",11.5,0,Nota02 ausente ou inválida
+101,Olivia Souza,100100,"9,7",1.1,N/A,1,Nota02 ausente ou inválida
