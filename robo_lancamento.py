@@ -1,256 +1,179 @@
-
 import csv
-import tkinter as tk
-from tkinter import messagebox
+import time
+import webbrowser
 from pathlib import Path
 import pyautogui
 
 PASTA = Path(__file__).parent
-ARQUIVO = PASTA / "notas_processadas.csv"
-SAIDA = PASTA / "lancamentos_simulados.csv"
+ARQUIVO = PASTA / "alunos_baguncados.csv"
+CONTROLE = PASTA / "lancamentos_simulados.csv"
+
+FORMULARIO = (
+    "https://docs.google.com/forms/d/e/"
+    "1FAIpQLSecZ46FOLWp1YTA5PB7Kvq36G6n_08XrT3Su9SSTaQx-33gTw/viewform"
+)
 
 pyautogui.FAILSAFE = True
-pyautogui.PAUSE = 0.2
+pyautogui.PAUSE = 0.3
 
 
-def carregar_alunos():
-    if not ARQUIVO.exists():
-        raise FileNotFoundError(
-            "Execute automação_notas.py antes de iniciar o robô."
-        )
-
-    with open(ARQUIVO, encoding="utf-8-sig", newline="") as arquivo:
-        return list(csv.DictReader(arquivo))
-
-
-try:
-    alunos = carregar_alunos()
-except Exception as erro:
-    messagebox.showerror("Erro", str(erro))
-    raise SystemExit
-
-
-janela = tk.Tk()
-janela.title("Portal Acadêmico Simulado - Laboratório 07")
-janela.geometry("850x650+50+50")
-janela.configure(padx=25, pady=20)
-
-tk.Label(
-    janela,
-    text="PORTAL ACADÊMICO — AMBIENTE DE TESTE",
-    font=("Arial", 16, "bold")
-).pack(pady=10)
-
-tk.Label(janela, text="Matrícula (RA):").pack(anchor="w")
-campo_ra = tk.Entry(janela, font=("Arial", 12), width=35)
-campo_ra.pack(anchor="w", pady=5)
-
-aluno_atual = {"dados": None}
-
-def pesquisar_aluno():
-    ra = campo_ra.get().strip()
-
-    encontrado = next(
-        (a for a in alunos if a.get("RA", "").strip() == ra),
-        None
-    )
-
-    if encontrado is None:
-        aluno_atual["dados"] = None
-        resultado.config(text="Aluno não encontrado.", fg="red")
-        return
-
-    aluno_atual["dados"] = encontrado
-    resultado.config(
-        text=f"Aluno: {encontrado['Nome']}\n"
-             f"Matrícula: {encontrado['RA']}\n"
-             "Registro localizado. Digite a nota final.",
-        fg="black"
-    )
-
-
-tk.Button(
-    janela, text="Buscar matrícula",
-    command=pesquisar_aluno, width=22
-).pack(anchor="w", pady=5)
-
-resultado = tk.Label(
-    janela, text="Aguardando pesquisa...",
-    font=("Arial", 11), justify="left"
-)
-resultado.pack(anchor="w", pady=15)
-
-tk.Label(janela, text="Nota final para lançamento:").pack(anchor="w")
-campo_nota = tk.Entry(janela, font=("Arial", 12), width=20)
-campo_nota.pack(anchor="w", pady=5)
-
-log = tk.Text(janela, height=9, width=85, state="disabled")
-log.pack(pady=15)
-
-def registrar_log(mensagem):
-    log.config(state="normal")
-    log.insert("end", mensagem + "\n")
-    log.see("end")
-    log.config(state="disabled")
-
-
-def salvar_nota():
-    aluno = aluno_atual["dados"]
-
-    if not aluno:
-        messagebox.showwarning(
-            "Atenção", "Pesquise um aluno antes de salvar."
-        )
-        return
-
-    texto = campo_nota.get().strip().replace(",", ".")
-
+def nota(valor):
+    valor = (valor or "").strip().replace(",", ".")
+    if not valor or valor.upper() in ("FALTOU", "FALTA", "N/A", "-"):
+        return None
     try:
-        nota = float(texto)
-        if not 0 <= nota <= 10:
-            raise ValueError
+        n = float(valor)
+        return n if 0 <= n <= 10 else None
     except ValueError:
-        messagebox.showerror(
-            "Nota inválida", "Digite uma nota entre 0 e 10."
-        )
-        return
+        return None
 
-    existe = SAIDA.exists()
 
-    with open(SAIDA, "a", newline="", encoding="utf-8-sig") as arquivo:
-        colunas = ["RA", "Nome", "Nota lançada", "Situação"]
-        escritor = csv.DictWriter(arquivo, fieldnames=colunas)
+def ra_limpo(valor):
+    ra = (valor or "").strip().upper().replace("RA", "").strip()
+    if ra.endswith("-0"):
+        ra = ra[:-2]
+    return ra.lstrip("0")
 
-        if not existe or SAIDA.stat().st_size == 0:
+
+def carregar():
+    with open(ARQUIVO, encoding="utf-8-sig", newline="") as f:
+        registros = csv.DictReader(f, delimiter=";")
+        resultado = []
+        vistos = set()
+
+        for r in registros:
+            ra = ra_limpo(r.get("RA"))
+            nome = " ".join((r.get("Nome") or "").split()).title()
+            n1 = nota(r.get("Nota01"))
+            n2 = nota(r.get("Nota02") or r.get("Notao2"))
+            tf1 = nota(r.get("TF01"))
+            tf2 = nota(r.get("TF02"))
+
+            if not ra or not nome or None in (n1, n2, tf1, tf2):
+                continue
+            if tf1 + tf2 > 2 or ra in vistos:
+                continue
+
+            vistos.add(ra)
+            final = round(((n1 + n2) / 2) * 0.8 + tf1 + tf2, 2)
+            resultado.append({
+                "RA": ra,
+                "Nome": nome,
+                "Nota 1": n1,
+                "Nota 2": n2,
+                "TF1": tf1,
+                "TF2": tf2,
+                "Nota Final": final,
+            })
+
+    return resultado
+
+
+def registrar(aluno, status):
+    existe = CONTROLE.exists() and CONTROLE.stat().st_size > 0
+    with open(CONTROLE, "a", newline="", encoding="utf-8-sig") as f:
+        campos = ["RA", "Nome", "Nota Final", "Status"]
+        escritor = csv.DictWriter(f, fieldnames=campos)
+        if not existe:
             escritor.writeheader()
-
         escritor.writerow({
             "RA": aluno["RA"],
             "Nome": aluno["Nome"],
-            "Nota lançada": f"{nota:.2f}",
-            "Situação": "Aprovado" if nota >= 7 else "Reprovado"
+            "Nota Final": f"{aluno['Nota Final']:.2f}",
+            "Status": status,
         })
 
-    registrar_log(
-        f"Salvo no simulador: {aluno['RA']} - "
-        f"{aluno['Nome']} - Nota {nota:.2f}"
-    )
 
-    aluno_atual["dados"] = None
-    campo_ra.delete(0, "end")
-    campo_nota.delete(0, "end")
-    resultado.config(text="Registro salvo. Aguardando próximo aluno.")
-
-
-tk.Button(
-    janela, text="Salvar lançamento",
-    command=salvar_nota, width=22
-).pack(anchor="w", pady=5)
-
-indice = 0
-executando = False
-
-
-def clicar_no_centro(widget):
-    janela.update_idletasks()
-    x = widget.winfo_rootx() + widget.winfo_width() // 2
-    y = widget.winfo_rooty() + widget.winfo_height() // 2
-    pyautogui.click(x, y)
-
-
-def iniciar_ciclo():
-    global indice, executando
-
-    if not executando:
+def main():
+    if not ARQUIVO.exists():
+        print(f"Arquivo não encontrado: {ARQUIVO}")
+        input("Enter para sair.")
         return
 
-    if indice >= len(alunos):
-        executando = False
-        registrar_log("Automação concluída.")
-        messagebox.showinfo(
-            "Concluído",
-            f"Robô terminou. Registros processados: {indice}.\n"
-            "Confira lancamentos_simulados.csv."
-        )
-        return
-
-    aluno = alunos[indice]
-
-    clicar_no_centro(campo_ra)
-    pyautogui.hotkey("ctrl", "a")
-    pyautogui.write(aluno["RA"].strip())
-    clicar_no_centro(botao_buscar)
-
-    janela.after(600, preencher_nota)
-
-
-def preencher_nota():
-    if not executando:
-        return
-
-    aluno = alunos[indice]
-
-    clicar_no_centro(campo_nota)
-    pyautogui.hotkey("ctrl", "a")
-    pyautogui.write(str(aluno["Nota final"]))
-    clicar_no_centro(botao_salvar)
-
-    janela.after(500, proximo_aluno)
-
-
-def proximo_aluno():
-    global indice
-    indice += 1
-    janela.after(300, iniciar_ciclo)
-
-
-def iniciar_robo():
-    global indice, executando
+    alunos = carregar()
+    print(f"Registros válidos encontrados: {len(alunos)}")
 
     if not alunos:
-        messagebox.showwarning(
-            "Sem dados", "Não há alunos em notas_processadas.csv."
-        )
+        input("Nenhum registro válido. Enter para sair.")
         return
 
-    confirmar = messagebox.askyesno(
-        "Iniciar automação",
-        f"O robô vai lançar {len(alunos)} registros neste "
-        "portal SIMULADO. Deseja continuar?"
+    print("\nO robô preencherá e tentará enviar cada formulário.")
+    print("Não execute novamente sem conferir a planilha para evitar duplicações.")
+    if input("Digite TESTAR para continuar: ").strip().upper() != "TESTAR":
+        return
+
+    webbrowser.open(FORMULARIO)
+    input(
+        "\nQuando o Forms abrir, clique no campo RA. "
+        "Depois volte para este terminal sem mover o mouse e pressione Enter."
     )
 
-    if confirmar:
-        indice = 0
-        executando = True
-        janela.after(1000, iniciar_ciclo)
+    # Guarda a posição onde o cursor está; use o campo RA na configuração.
+    x, y = pyautogui.position()
+    print(f"Posição inicial configurada: ({x}, {y})")
+    print("Começando em 5 segundos...")
+    time.sleep(5)
+
+    for i, aluno in enumerate(alunos, 1):
+        print(f"\n{i}/{len(alunos)}: {aluno['RA']} - {aluno['Nome']}")
+
+        try:
+            pyautogui.click(x, y)
+            valores = [
+                aluno["RA"],
+                aluno["Nome"],
+                str(aluno["Nota 1"]).replace(".", ","),
+                str(aluno["Nota 2"]).replace(".", ","),
+                str(aluno["TF1"]).replace(".", ","),
+                str(aluno["TF2"]).replace(".", ","),
+                f"{aluno['Nota Final']:.2f}".replace(".", ","),
+            ]
+
+            for valor in valores:
+                pyautogui.write(valor, interval=0.03)
+                pyautogui.press("tab")
+                time.sleep(0.2)
+
+            # O foco pode variar conforme a estrutura do formulário.
+            # Confira o primeiro envio antes de permitir o restante.
+            if i == 1:
+                print(
+                    "\nPrimeiro aluno preenchido. Confira os campos no navegador."
+                    "\nSe estiverem corretos e o foco estiver no botão Enviar,"
+                    " pressione Enter no terminal para tentar enviar."
+                )
+                input()
+                pyautogui.press("enter")
+                time.sleep(4)
+                registrar(aluno, "Tentativa de envio; confirmar na planilha")
+
+                if input(
+                    "Confira se a resposta chegou à planilha. "
+                    "Digite SIM para continuar ou qualquer outra coisa para parar: "
+                ).strip().upper() != "SIM":
+                    print("Parado para conferência. Não execute novamente sem revisar.")
+                    break
+            else:
+                pyautogui.press("enter")
+                time.sleep(4)
+                registrar(aluno, "Tentativa de envio; confirmar na planilha")
+
+            if i < len(alunos):
+                pyautogui.hotkey("ctrl", "l")
+                pyautogui.write(FORMULARIO, interval=0.01)
+                pyautogui.press("enter")
+                time.sleep(5)
+
+        except pyautogui.FailSafeException:
+            print("Interrompido pelo movimento do mouse para o canto superior esquerdo.")
+            break
+        except Exception as erro:
+            print(f"Erro: {erro}")
+            break
+
+    print("\nFim da execução. Confira as respostas na planilha vinculada.")
+    input("Pressione Enter para fechar.")
 
 
-botao_buscar = janela.winfo_children()[2]
-botao_salvar = None
-
-# Referências explícitas aos botões para o PyAutoGUI.
-for widget in janela.winfo_children():
-    if isinstance(widget, tk.Button):
-        if widget.cget("text") == "Buscar matrícula":
-            botao_buscar = widget
-        elif widget.cget("text") == "Salvar lançamento":
-            botao_salvar = widget
-
-# O robô usa estas referências durante a automação.
-botao_buscar = botao_buscar
-botao_salvar = botao_salvar
-
-botao_robo = tk.Button(
-    janela,
-    text="INICIAR ROBÔ PYAutoGUI",
-    command=iniciar_robo,
-    font=("Arial", 12, "bold"),
-    width=28
-)
-botao_robo.pack(pady=10)
-
-# A função de preenchimento usa o botão de salvamento real.
-botao_salvar_original = botao_salvar
-botao_salvar = botao_salvar_original
-
-janela.mainloop()
+if __name__ == "__main__":
+    main()

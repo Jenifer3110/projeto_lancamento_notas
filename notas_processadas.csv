@@ -1,45 +1,26 @@
-﻿Linha original,Nome,RA,Nota01,TF01,Nota02,TF02,Nota final,Situação
-6,Sabrina Carvalho,100005,4.4,1.9,9.6,1.0,5.89,Reprovado
-7,Quezia Ferreira,100006,7.6,1.8,6.1,1.6,5.82,Reprovado
-8,Igor Pereira Ribeiro,100007,2.2,1.0,9.1,0.7,4.69,Reprovado
-10,Olivia Rodrigues Ribeiro,0100009,8.8,1.2,0.6,0.1,3.89,Reprovado
-11,Ana Oliveira,100010,5.3,0.0,4.4,1.0,3.98,Reprovado
-12,Eduardo Rocha Souza,100011,4.3,0.0,5.1,4.4,4.2,Reprovado
-17,Xuxa Lima,0100016,8.0,2.5,6.0,1.0,5.95,Reprovado
-19,Wesley Pereira Martins,100018,9.8,0.9,1.4,1.8,4.75,Reprovado
-21,Julia Rodrigues Gomes,100020,0.3,0.0,4.9,0.5,2.13,Reprovado
-23,Thiago Ribeiro Almeida,100022,3.1,1.6,5.3,1.9,3.71,Reprovado
-24,Pedro Oliveira,100023,3.0,0.1,0.1,1.0,1.35,Reprovado
-25,Julia Santos Pereira,100024,3.7,0.0,7.7,1.2,4.68,Reprovado
-29,Ursula Oliveira,100028,5.0,0.4,4.6,1.6,4.04,Reprovado
-30,Igor Almeida,100029,0.6,2.1,8.8,0.2,3.99,Reprovado
-35,Pedro Rocha,RA100034,8.0,0.6,10.0,1.8,7.44,Aprovado
-37,Pedro Souza Carvalho,RA100036,3.3,1.0,7.3,3.0,4.64,Reprovado
-38,Thiago Ribeiro,RA100037,3.7,0.9,9.7,1.0,5.55,Reprovado
-40,Bruno Souza,100039,5.5,1.9,7.4,0.5,5.4,Reprovado
-44,Fernanda Martins,100043,4.9,1.9,3.0,1.9,3.54,Reprovado
-45,Bruno Ribeiro,0100044,4.6,1.4,7.2,1.9,5.05,Reprovado
-49,Olivia Lima,RA100048,9.5,1.9,8.1,2.0,7.43,Aprovado
-53,Eduardo Araujo Ribeiro,100052,3.4,0.7,1.2,2.0,2.11,Reprovado
-57,Wesley Oliveira,100056,3.2,0.2,4.5,1.3,3.23,Reprovado
-58,Ana Rodrigues,RA100057,6.0,0.0,8.1,1.4,5.78,Reprovado
-62,Igor Pereira Rodrigues,100061,4.4,0.8,9.0,0.7,5.51,Reprovado
-64,Quezia Martins Almeida,100063,3.9,1.3,9.4,0.4,5.49,Reprovado
-65,Ursula Oliveira,100064,6.0,1.0,6.4,1.0,5.16,Reprovado
-68,Bruno Carvalho,100067,8.4,0.6,0.1,0.5,3.51,Reprovado
-70,Olivia Martins Oliveira,100069,3.9,3.1,9.2,1.8,5.73,Reprovado
-71,Ursula Ribeiro,100070,2.3,1.4,7.4,0.3,4.05,Reprovado
-72,Quezia Carvalho,100071,3.8,1.1,4.4,0.2,3.41,Reprovado
-73,Lucas Almeida,RA100072,3.0,1.5,0.1,1.9,1.58,Reprovado
-79,Mariana Costa,100078,8.5,0.0,8.9,1.4,7.1,Aprovado
-85,Sabrina Araujo Oliveira,100084,2.5,0.4,8.3,0.7,4.43,Reprovado
-87,Rafael Lima Oliveira,RA100086,6.7,1.1,9.7,1.6,6.83,Reprovado
-88,Thiago Lima,RA100087,0.0,0.7,1.0,0.5,0.52,Reprovado
-89,Sabrina Rocha Souza,100088,8.0,1.3,9.7,2.2,7.43,Aprovado
-90,Daniela Rodrigues,0100089,8.7,1.7,0.4,1.9,4.0,Reprovado
-92,Ursula Oliveira,100091,8.2,0.7,6.0,0.7,5.82,Reprovado
-93,Sabrina Souza,RA100092,8.0,1.5,0.6,0.0,3.59,Reprovado
-96,Gabriel Araujo,100095,0.6,1.2,9.9,0.3,4.35,Reprovado
-98,Bruno Almeida,100097,7.4,2.0,3.0,0.8,4.44,Reprovado
-99,Nathan Costa Silva,100098,6.4,1.7,3.3,0.9,4.14,Reprovado
-100,Mariana Santos,100099,0.2,1.0,9.0,1.6,3.94,Reprovado
+﻿RA,Nome,Nota 1,Nota 2,TF1,TF2,Nota Final,Situação
+100007,Igor Pereira Ribeiro,2.2,9.1,1.0,0.7,6.22,Reprovado
+100009,Olivia Rodrigues Ribeiro,8.8,0.6,1.2,0.1,5.06,Reprovado
+100010,Ana Oliveira,5.3,4.4,0.0,1.0,4.88,Reprovado
+100020,Julia Rodrigues Gomes,0.3,4.9,0.0,0.5,2.58,Reprovado
+100023,Pedro Oliveira,3.0,0.1,0.1,1.0,2.34,Reprovado
+100024,Julia Santos Pereira,3.7,7.7,0.0,1.2,5.76,Reprovado
+100028,Ursula Oliveira,5.0,4.6,0.4,1.6,5.84,Reprovado
+100037,Thiago Ribeiro,3.7,9.7,0.9,1.0,7.26,Aprovado
+100049,Heloisa Gomes,8.0,5.6,0.2,1.3,6.94,Reprovado
+100056,Wesley Oliveira,3.2,4.5,0.2,1.3,4.58,Reprovado
+100057,Ana Rodrigues,6.0,8.1,0.0,1.4,7.04,Aprovado
+100061,Igor Pereira Rodrigues,4.4,9.0,0.8,0.7,6.86,Reprovado
+100063,Quezia Martins Almeida,3.9,9.4,1.3,0.4,7.02,Aprovado
+100064,Ursula Oliveira,6.0,6.4,1.0,1.0,6.96,Reprovado
+100066,Igor Silva Almeida,4.4,2.3,1.2,0.0,3.88,Reprovado
+100067,Bruno Carvalho,8.4,0.1,0.6,0.5,4.50,Reprovado
+100070,Ursula Ribeiro,2.3,7.4,1.4,0.3,5.58,Reprovado
+100071,Quezia Carvalho,3.8,4.4,1.1,0.2,4.58,Reprovado
+100076,Fernanda Araujo Rocha,2.4,9.7,1.0,0.8,6.64,Reprovado
+100078,Mariana Costa,8.5,8.9,0.0,1.4,8.36,Aprovado
+100084,Sabrina Araujo Oliveira,2.5,8.3,0.4,0.7,5.42,Reprovado
+100087,Thiago Lima,0.0,1.0,0.7,0.5,1.60,Reprovado
+100091,Ursula Oliveira,8.2,6.0,0.7,0.7,7.08,Aprovado
+100092,Sabrina Souza,8.0,0.6,1.5,0.0,4.94,Reprovado
+100095,Gabriel Araujo,0.6,9.9,1.2,0.3,5.70,Reprovado
